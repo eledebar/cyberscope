@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="CyberScope geometric aperture">
+  <rect width="512" height="512" rx="112" fill="#101512"/>
+  <path fill="#3DCD58" d="M256 72 416 164v184L256 440 96 348V164zm0 58-110 63v126l110 63 110-63V193z"/>
+  <circle cx="256" cy="256" r="74" fill="#3DCD58"/>
+  <path d="M256 182v148M182 256h148" stroke="#101512" stroke-width="30" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #17201a; background: #f5f7f5; font-synthesis: none; text-rendering: optimizeLegibility; }
+.dark { color: #edf3ef; background: #0d110f; }
+html { scroll-behavior: smooth; }
+html[data-motion="reduced"] { scroll-behavior: auto; }
+html[data-motion="reduced"] *, html[data-motion="reduced"] *::before, html[data-motion="reduced"] *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+html[data-font="small"] { font-size: 14px; }
+html[data-font="large"] { font-size: 18px; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: #f5f7f5; }
+.dark body { background: #0d110f; }
+* { box-sizing: border-box; }
+::selection { background: #b1eabd; color: #072811; }
+:focus-visible { outline: 3px solid #3DCD58; outline-offset: 3px; }
+
+@layer components {
+  .surface { @apply border border-slate-200/80 bg-white shadow-panel dark:border-white/10 dark:bg-[#151b17]; }
+  .panel { @apply surface rounded-2xl; }
+  .eyebrow { @apply font-mono text-[.68rem] font-bold uppercase tracking-[.18em] text-scope-700 dark:text-scope-300; }
+  .page-title { @apply mt-3 text-3xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-4xl; }
+  .lead { @apply mt-4 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg; }
+  .button { @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-scope-400 hover:text-scope-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:hover:border-scope-400 dark:hover:text-scope-300; }
+  .button-primary { @apply button border-scope-500 bg-scope-500 text-[#07150b] hover:bg-scope-400 hover:text-[#07150b] dark:bg-scope-400; }
+  .chip { @apply inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300; }
+  .field { @apply min-h-11 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-900 placeholder:text-slate-400 dark:border-white/15 dark:bg-[#101512] dark:text-white dark:placeholder:text-slate-500; }
+}
+
+.industrial-grid { background-image: linear-gradient(to right, rgb(61 205 88 / .07) 1px, transparent 1px), linear-gradient(to bottom, rgb(61 205 88 / .07) 1px, transparent 1px); background-size: 32px 32px; }
+.diagram-flow > *:not(:last-child)::after { content: "→"; position: absolute; right: -.95rem; top: 50%; transform: translateY(-50%); color: #778078; font-weight: 700; }
+@media (max-width: 720px) { .diagram-flow > *:not(:last-child)::after { content: "↓"; right: 50%; top: auto; bottom: -1.35rem; transform: translateX(50%); } }
+html[data-density="compact"] .density-card { padding: 1rem; }
+mark { border-radius: .2rem; background: #b1eabd; color: #072811; padding: 0 .1em; }
