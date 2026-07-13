@@ -9,15 +9,7 @@
     <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
     <link rel="manifest" href="./manifest.webmanifest" />
-    <script>
-      (() => {
-        try {
-          const saved = JSON.parse(localStorage.getItem('cyberscope.preferences') || '{}');
-          document.documentElement.classList.toggle('dark', saved.theme === 'dark');
-          document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
-        } catch (_) {}
-      })();
-    </script>
+    <script type="module" src="/src/theme-init.ts"></script>
     <title>CyberScope</title>
   </head>
   <body>
