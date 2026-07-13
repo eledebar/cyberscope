@@ -91,7 +91,14 @@ export function TopicPage() {
                 <h2 className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
                   {localise(section.heading, language)}
                 </h2>
-                <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">{localise(section.body, language)}</p>
+                <div className="mt-3 space-y-4 text-slate-600 dark:text-slate-300">
+                  {localise(section.body, language)
+                    .split(/\n\s*\n/)
+                    .filter(Boolean)
+                    .map((paragraph, index) => (
+                      <p key={index} className="leading-7">{paragraph}</p>
+                    ))}
+                </div>
                 {section.bullets && (
                   <ul className="mt-4 grid gap-2">
                     {section.bullets.map((bullet, index) => (

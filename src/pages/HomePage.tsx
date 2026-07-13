@@ -33,8 +33,8 @@ export function HomePage() {
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
               {language === "en"
-                ? "A visual field guide for freely exploring concepts, architecture, controls, threats and resilient operations — without accounts, courses or progress tracking."
-                : "Una guía visual para explorar libremente conceptos, arquitectura, controles, amenazas y operaciones resilientes, sin cuentas, cursos ni seguimiento del progreso."}
+                ? "A field guide for freely exploring concepts, architecture, controls, threats and resilient operations."
+                : "Una guía para explorar libremente conceptos, arquitectura, controles, amenazas y operaciones resilientes."}
             </p>
             <div className="mt-9 max-w-3xl"><SearchBox large /></div>
             <div className="mt-5 flex flex-wrap gap-2">

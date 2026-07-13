@@ -1,4 +1,5 @@
 import type { CyberTopic, Difficulty, LocalisedText, PracticalExample } from "../types/content";
+import { topicExplanationDetail } from "./topicExplanations";
 
 const l = (en: string, es: string): LocalisedText => ({ en, es });
 interface Seed { id: string; category: string; title: LocalisedText; summary: LocalisedText; why: LocalisedText; risk: LocalisedText; control: LocalisedText; aliases?: string[]; difficulty?: Difficulty; diagram?: string; comparison?: string; checklist?: string; }
@@ -100,6 +101,29 @@ const seeds: Seed[] = [
   s("space-5g-digital-twins", "emerging", "Space, 5G and digital twins", "Espacio, 5G y gemelos digitales", "Security considerations for distributed communications, satellite systems and virtual representations of physical assets.", "Consideraciones para comunicaciones distribuidas, sistemas satelitales y representaciones virtuales de activos físicos.", "These technologies connect complex supplier ecosystems to consequential services.", "Estas tecnologías conectan ecosistemas complejos de proveedores con servicios de consecuencias relevantes.", "Remote operation, shared infrastructure and model-data integrity create distinct dependencies.", "Operación remota, infraestructura compartida e integridad de modelos y datos crean dependencias distintas.", "Use strong system engineering, segmented control, supply-chain assurance, resilient timing and validated models.", "Usar ingeniería de sistemas robusta, control segmentado, aseguramiento de cadena, sincronización resiliente y modelos validados.", { difficulty: "advanced", aliases: ["satellite security", "space systems", "5G", "digital twin", "blockchain", "XR"] })
 ];
 
+const withoutFinalStop = (value: string) => value.trim().replace(/[.!?]+$/, "");
+const lowerInitial = (value: string) => value.charAt(0).toLocaleLowerCase() + value.slice(1);
+
+function detailedExplanation(seed: Seed): LocalisedText {
+  const detail = topicExplanationDetail[seed.id];
+  if (!detail) {
+    throw new Error(`Missing detailed explanation for topic: ${seed.id}`);
+  }
+
+  return l(
+    `${detail.en}
+
+This matters because ${lowerInitial(withoutFinalStop(seed.why.en))}. The main failure or abuse scenario to understand is that ${lowerInitial(withoutFinalStop(seed.risk.en))}.
+
+In practice, effective management requires teams to ${lowerInitial(withoutFinalStop(seed.control.en))}. These measures must be assigned to named owners, tested in the real environment and reviewed whenever the system, threat or business objective changes.`,
+    `${detail.es}
+
+Su importancia radica en que ${lowerInitial(withoutFinalStop(seed.why.es))}. El principal escenario de fallo o abuso que debe comprenderse es que ${lowerInitial(withoutFinalStop(seed.risk.es))}.
+
+En la práctica, una gestión eficaz exige ${lowerInitial(withoutFinalStop(seed.control.es))}. Estas medidas deben asignarse a responsables concretos, probarse en el entorno real y revisarse cuando cambien el sistema, la amenaza o el objetivo de negocio.`
+  );
+}
+
 const references = [
   { label: "NIST Cybersecurity Framework", publisher: "NIST", url: "https://www.nist.gov/cyberframework" },
   { label: "ENISA Topics", publisher: "ENISA", url: "https://www.enisa.europa.eu/topics" }
@@ -130,7 +154,7 @@ export const topics: CyberTopic[] = seeds.map((seed, index) => ({
   summary: seed.summary,
   definition: seed.summary,
   sections: [
-    { id: "explanation", heading: l("Detailed explanation", "Explicación detallada"), body: l("This topic should be understood as part of a wider system of people, processes, technology and accountable decisions. Its practical value depends on context, ownership and measurable outcomes.", "Este tema debe entenderse como parte de un sistema más amplio de personas, procesos, tecnología y decisiones con responsables claros. Su valor práctico depende del contexto, de la asignación de responsabilidades y de resultados medibles.") },
+    { id: "explanation", heading: l("Detailed explanation", "Explicación detallada"), body: detailedExplanation(seed) },
     { id: "why", heading: l("Why it matters", "Por qué importa"), body: seed.why },
     { id: "how", heading: l("How it works", "Cómo funciona"), body: l(`Teams establish context, observe relevant signals, apply proportionate safeguards and verify whether those safeguards produce the intended outcome.`, `Los equipos establecen contexto, observan señales relevantes, aplican salvaguardas proporcionadas y verifican si producen el resultado previsto.`) },
     { id: "components", heading: l("Main components", "Componentes principales"), body: l("Governance defines ownership; architecture creates boundaries; operations maintain visibility; response and recovery preserve dependable outcomes.", "El gobierno define responsables; la arquitectura establece límites; las operaciones mantienen la visibilidad; la respuesta y la recuperación preservan resultados fiables."), bullets: [l("Owned assets and data", "Activos y datos con responsable"), l("Documented trust and dependencies", "Confianza y dependencias documentadas"), l("Preventive, detective and recovery controls", "Controles preventivos, detectivos y de recuperación")] },
@@ -143,7 +167,7 @@ export const topics: CyberTopic[] = seeds.map((seed, index) => ({
   relatedTopicIds: seeds.filter(other => other.category === seed.category && other.id !== seed.id).slice(0, 3).map(other => other.id),
   glossaryTermIds: [seed.id, ...(seed.aliases ?? []).slice(0, 3).map(alias => alias.toLowerCase().replace(/[^a-z0-9]+/g, "-"))],
   references,
-  lastReviewed: "2026-07-12",
+  lastReviewed: "2026-07-13",
   diagramId: seed.diagram,
   comparisonId: seed.comparison,
   checklistId: seed.checklist,
